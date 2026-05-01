@@ -1,0 +1,19 @@
+Prompt 1: Basic Theme aur Color Palette (Sabse pehla step)
+Focus: Visual look aur theme ko update karna.
+"Based on image_0.png, image_1.png, image_2.png, image_3.png, and image_4.png, redesign the entire frontend of the Sankardev Sishu Vidya Niketan website. The core visual style and color palette must pivot from the current dark navy to the clean, light-themed academic aesthetic of image_6.png. Use white or near-white backgrounds everywhere, and subtle gradient effects for media placeholders, matching image_6.png. The text content must remain exactly verbatim from images 0-4, but change font colors (e.g., hero text, list items) to academic blue and dark gray. Add subtle page-load transitions to all elements. Introduce clean hover animations on all buttons."
+
+Prompt 2: Header, Logo, aur Navigation Transformation
+Focus: Header design elements aur interaction points.
+"Using content from image_0.png and visual style from image_6.png, redesign the header and navigation bar. Keep the circular 'S' logo. Transition the nav links ('Home', 'Admissions', 'Student Portal') from dark text to academic blue, set against a clean white header background like image_6.png. Style the 'Search' button with a clean white button design with an academic blue border, as in image_6.png. Ensure all text is exactly the same as in image_0.png. Add a subtle cursor hover underline animation for navigation links."
+
+Prompt 3: Hero Section Redesign aur Media Integration
+Focus: Hero text positioning aur media integration.
+"Redesign the main hero section of the website using content from image_0.png, but restructuring it based on the visual layout of image_6.png's 'About Our School' section. Swap the elements: Move the large photo placeholder (with the school icon) to the left side and place the main headline ('Where Curiosity Meets Character.'), descriptive text, and CTA buttons on the right. Change headline and body text colors to academic blue/gray. Retain all text exactly. Style the 'Admissions Open' pill and the main buttons to match the clean, academic design of image_6.png. Implement a smooth pulse cursor animation on the school icon inside the media placeholder."
+
+Prompt 4: Component aur Card Design Update (Stat Cards & Features)
+Focus: Individually styled modules aur interactions.
+"Transform the statistics blocks (image_0 footer, image_1 header) and feature cards based on the clean card structure in image_6.png. Convert the loose statistics numbers into individual, rounded-corner cards with subtle shadows, inspired by the teacher profiles in image_6.png. For academic blocks (e.g., 'Curriculum'), replace the dark navy background with a clean white card style featuring academic blue text and outlines. The banner text in image_1 ('MATHURAPUR, CHARAIDEO, ASSAM', etc.) must change its text color to academic blue. Retain all text. Add a lift-up hover animation for all cards when the cursor passes over them."
+
+Prompt 5: Feature Sections (Notice Board & Calendar) aur Footer Redesign
+Focus: Complex sections ka theme integration aur special features.
+"Using content from image_2.png, image_3.png, image_4.png, and the style of image_6.png, redesign the Notice Board, Calendar, and Footer. The Notice Board (latest) section should use individual card modules for each notice, with a light card theme and academic blue text. Style the calendar list items in image_3 as clean, bordered cards with distinct hover effects. Change the CTA image banner in image_3 from its dark navy background to a clean, light background with a neat border, matching image_6.png's style. Redesign the footer in image_4 with academic-blue text on a clean light background. Just above the footer, integrate a scrolling notification marquee (inspired by image_8.png's marquee style and content format) to display upcoming key events like 'Republic Day'. Ensure all links have cursor-hover animations, and retain all original text."
