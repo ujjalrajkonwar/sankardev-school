@@ -8,34 +8,7 @@ import { Search, Lock, Download } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { fetchClassOptions, FALLBACK_CLASS_OPTIONS, type ClassOption } from "@/lib/class-options";
-
-// Demo data
-const DEMO_STUDENTS: Record<string, { name: string; class: string; roll: string; feeCleared: boolean; results: { subject: string; marks: number; total: number; grade: string }[]; percentage: number; rank: number }> = {
-  "S001": {
-    name: "Aarav Sharma", class: "8", roll: "S001", feeCleared: true,
-    results: [
-      { subject: "Mathematics", marks: 95, total: 100, grade: "A+" },
-      { subject: "Science", marks: 88, total: 100, grade: "A" },
-      { subject: "English", marks: 92, total: 100, grade: "A+" },
-      { subject: "Hindi", marks: 85, total: 100, grade: "A" },
-      { subject: "Social Science", marks: 90, total: 100, grade: "A+" },
-      { subject: "Computer Science", marks: 97, total: 100, grade: "A+" },
-    ],
-    percentage: 91.17, rank: 3,
-  },
-  "S002": {
-    name: "Priya Das", class: "7", roll: "S002", feeCleared: false,
-    results: [
-      { subject: "Mathematics", marks: 78, total: 100, grade: "B+" },
-      { subject: "Science", marks: 82, total: 100, grade: "A" },
-      { subject: "English", marks: 75, total: 100, grade: "B+" },
-      { subject: "Hindi", marks: 80, total: 100, grade: "A" },
-      { subject: "Social Science", marks: 85, total: 100, grade: "A" },
-      { subject: "Computer Science", marks: 88, total: 100, grade: "A" },
-    ],
-    percentage: 81.33, rank: 8,
-  },
-};
+import { DEMO_STUDENTS } from "@/lib/mock-data/results";
 
 export default function PortalPage() {
   const [roll, setRoll] = useState("");

@@ -4,11 +4,20 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import CommandSearch from "@/components/shared/CommandSearch";
 
-const ALL_LINKS = [
+const DESKTOP_LINKS = [
+  { label: "Events", href: "/#events" },
+  { label: "Teachers", href: "/teachers" },
+  { label: "Result", href: "/portal" },
+  { label: "Pay Fees", href: "/payment" },
+  { label: "Admission", href: "/admissions" },
+  { label: "Contact Us", href: "/#contact", mobileLabel: "Contact" },
+];
+
+const MOBILE_LINKS = [
   { label: "Notice", href: "/#notice", mobileLabel: "Notice" },
   { label: "Events", href: "/#events", mobileLabel: "Events" },
   { label: "Teachers", href: "/teachers", mobileLabel: "Teachers" },
-  { label: "Result", href: "/portal", mobileLabel: "Result" },
+  { label: "Pay Fees", href: "/payment", mobileLabel: "Pay Fees" },
   { label: "Admission", href: "/admissions", mobileLabel: "Admission" },
   { label: "Contact Us", href: "/#contact", mobileLabel: "Contact" },
 ];
@@ -62,9 +71,16 @@ export default function Navbar() {
               </div>
             </Link>
 
-            {/* Links Container */}
-            <nav className="flex items-center justify-end gap-0 md:gap-1.5 overflow-x-auto no-scrollbar scroll-smooth flex-nowrap w-full">
-              {ALL_LINKS.map((link) => (
+            {/* Desktop Links */}
+            <nav className="hidden md:flex items-center justify-end gap-0 md:gap-1.5 overflow-x-auto no-scrollbar scroll-smooth flex-nowrap w-full">
+              {DESKTOP_LINKS.map((link) => (
+                <NavLink key={link.href} link={link} />
+              ))}
+            </nav>
+
+            {/* Mobile Links */}
+            <nav className="flex md:hidden items-center justify-end gap-0 overflow-x-auto no-scrollbar scroll-smooth flex-nowrap w-full">
+              {MOBILE_LINKS.map((link) => (
                 <NavLink key={link.href} link={link} />
               ))}
             </nav>

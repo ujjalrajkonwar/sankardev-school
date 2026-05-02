@@ -43,8 +43,8 @@ export default function Footer() {
           <div>
             <p className="label-text mb-4">Contact</p>
             <div className="space-y-2.5 text-sm text-[--color-primary]">
-              <p>info@sankardev.edu</p>
-              <p>+91 98765 43210</p>
+                <p>sankardevsishuniketan0@gmail.com</p>
+                <p>9365526549</p>
               <p>Mathurapur, Charaideo, Assam</p>
             </div>
           </div>

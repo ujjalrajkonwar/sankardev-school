@@ -10,7 +10,7 @@ export default function LeadershipSection() {
             
             {/* Principal Card */}
             <div className="bg-white flex flex-col items-center border border-gray-200 shadow-sm rounded-lg overflow-hidden transition-all hover:shadow-md p-3 sm:p-5 text-center">
-              <div className="w-20 h-[106px] sm:w-24 sm:h-32 bg-gray-100 rounded-md flex items-center justify-center border border-gray-200 mb-4 shrink-0 relative overflow-hidden">
+              <div className="inline-flex w-fit max-w-full items-center justify-center rounded-md border border-gray-200 bg-gray-100 px-4 py-6 mb-4 shrink-0 relative overflow-hidden">
                 <span className="text-[10px] sm:text-xs text-gray-400 font-medium px-2 text-center">Photo</span>
               </div>
               <h3 className="text-sm sm:text-lg font-bold text-[#004e59] mb-1">
@@ -23,7 +23,7 @@ export default function LeadershipSection() {
 
             {/* Vice Principal Card */}
             <div className="bg-white flex flex-col items-center border border-gray-200 shadow-sm rounded-lg overflow-hidden transition-all hover:shadow-md p-3 sm:p-5 text-center">
-              <div className="w-20 h-[106px] sm:w-24 sm:h-32 bg-gray-100 rounded-md flex items-center justify-center border border-gray-200 mb-4 shrink-0 relative overflow-hidden">
+              <div className="inline-flex w-fit max-w-full items-center justify-center rounded-md border border-gray-200 bg-gray-100 px-4 py-6 mb-4 shrink-0 relative overflow-hidden">
                 <span className="text-[10px] sm:text-xs text-gray-400 font-medium px-2 text-center">Photo</span>
               </div>
               <h3 className="text-sm sm:text-lg font-bold text-[#004e59] mb-1">

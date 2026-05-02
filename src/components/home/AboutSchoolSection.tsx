@@ -36,16 +36,17 @@ export default function AboutSchoolSection() {
               </h2>
               <div className="space-y-4 text-gray-600 text-base sm:text-lg leading-relaxed">
                 <p>
-                  Our school is a forward-thinking educational institution dedicated to
-                  academic excellence, creativity, and character development. We combine
-                  modern teaching methods with strong values to prepare students for a
-                  successful future.
+                  Welcome to Sankardev Shishu Vidya Niketan, Mathurapur, a premier center of learning located in the heart of the Charaideo district, Assam
                 </p>
                 <p>
-                  With experienced educators, innovative programs, and a supportive
-                  environment, we help every student discover their potential and grow with
-                  confidence.
+                  Affiliated with the Shishu Shiksha Samiti, Assam, our institution is deeply rooted in the cultural and spiritual heritage of Mahapurush Srimanta Sankardev. We believe in a holistic approach to education that balances modern academic rigor with the "Pancha Pradipta" philosophy, focusing on physical, mental, and spiritual growth.
                 </p>
+                <div className="mt-2 text-sm text-[--color-muted-foreground] space-y-1">
+                  <p><strong>Affiliation:</strong> Shishu Shiksha Samiti, Assam (Vidya Bharati)</p>
+                  <p><strong>Medium:</strong> Assamese</p>
+                  <p><strong>Established:</strong> 2000</p>
+                  <p><strong>Location:</strong> Mathurapur, Charaideo, Assam - 785689</p>
+                </div>
               </div>
               {/* CTAs */}
               <div className="flex flex-wrap items-center gap-4 pt-4">
@@ -58,7 +59,7 @@ export default function AboutSchoolSection() {
                 </Link>
                 <Link
                   href="/portal"
-                  className="inline-flex items-center px-6 py-2.5 border border-gray-300 text-gray-700 hover:border-blue-400 hover:text-blue-600 rounded-full font-medium transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 bg-blue-600 text-white rounded-full font-medium hover:bg-blue-700 transition-colors shadow-sm"
                 >
                   Result
                 </Link>

@@ -11,7 +11,7 @@ const NAV_ITEMS = [
 ];
 
 const QUICK_INFO = [
-  { label: "Phone: +91 98765 43210", icon: Phone },
+  { label: "Phone: 9365526549", icon: Phone },
   { label: "Mathurapur, Charaideo, Assam", icon: MapPin },
   { label: "SEBA Affiliated", icon: GraduationCap },
 ];
