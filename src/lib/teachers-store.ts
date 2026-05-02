@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useSyncExternalStore } from "react";
 
 export type Teacher = {
   id: string;
@@ -10,9 +10,13 @@ export type Teacher = {
   photoUrl: string;
 };
 
+const CATEGORIES_KEY = "sankardev_categories";
+const TEACHERS_KEY = "sankardev_teachers";
+const TEACHERS_EVENT = "sankardev-teachers-updated";
+
 const DEFAULT_CATEGORIES = [
-  "all", "math", "science", "social science", "assamese", 
-  "english", "sanskrit", "art", "geography", "hindi", 
+  "all", "math", "science", "social science", "assamese",
+  "english", "sanskrit", "art", "geography", "hindi",
   "advance math", "computer science", "bihu"
 ];
 
@@ -23,67 +27,108 @@ const DEFAULT_TEACHERS: Teacher[] = [
   { id: "4", name: "Michael Lee", subject: "Computer Science", category: "computer science", photoUrl: "" },
 ];
 
+let categoriesCache = DEFAULT_CATEGORIES;
+let teachersCache = DEFAULT_TEACHERS;
+let cacheReady = false;
+
+function readStorage<T>(key: string, fallback: T[]) {
+  try {
+    const stored = localStorage.getItem(key);
+    if (!stored) {
+      localStorage.setItem(key, JSON.stringify(fallback));
+      return fallback;
+    }
+
+    const parsed = JSON.parse(stored);
+    return Array.isArray(parsed) ? parsed : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function loadCache() {
+  if (typeof window === "undefined" || cacheReady) return;
+
+  categoriesCache = readStorage(CATEGORIES_KEY, DEFAULT_CATEGORIES);
+  teachersCache = readStorage(TEACHERS_KEY, DEFAULT_TEACHERS);
+  cacheReady = true;
+}
+
+function notifyStoreChanged() {
+  window.dispatchEvent(new Event(TEACHERS_EVENT));
+}
+
+function subscribe(callback: () => void) {
+  const handleStorage = (event: StorageEvent) => {
+    if (event.key === CATEGORIES_KEY || event.key === TEACHERS_KEY) {
+      cacheReady = false;
+      loadCache();
+      callback();
+    }
+  };
+
+  const handleLocalUpdate = () => callback();
+
+  window.addEventListener("storage", handleStorage);
+  window.addEventListener(TEACHERS_EVENT, handleLocalUpdate);
+
+  return () => {
+    window.removeEventListener("storage", handleStorage);
+    window.removeEventListener(TEACHERS_EVENT, handleLocalUpdate);
+  };
+}
+
+function getCategoriesSnapshot() {
+  loadCache();
+  return categoriesCache;
+}
+
+function getTeachersSnapshot() {
+  loadCache();
+  return teachersCache;
+}
+
+function getServerCategoriesSnapshot() {
+  return DEFAULT_CATEGORIES;
+}
+
+function getServerTeachersSnapshot() {
+  return DEFAULT_TEACHERS;
+}
+
 export function useTeachersStore() {
-  const [categories, setCategories] = useState<string[]>([]);
-  const [teachers, setTeachers] = useState<Teacher[]>([]);
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    const storedCategories = localStorage.getItem("sankardev_categories");
-    const storedTeachers = localStorage.getItem("sankardev_teachers");
-
-    if (storedCategories) {
-      setCategories(JSON.parse(storedCategories));
-    } else {
-      setCategories(DEFAULT_CATEGORIES);
-      localStorage.setItem("sankardev_categories", JSON.stringify(DEFAULT_CATEGORIES));
-    }
-
-    if (storedTeachers) {
-      setTeachers(JSON.parse(storedTeachers));
-    } else {
-      setTeachers(DEFAULT_TEACHERS);
-      localStorage.setItem("sankardev_teachers", JSON.stringify(DEFAULT_TEACHERS));
-    }
-    
-    setIsLoaded(true);
-
-    const handleStorage = (e: StorageEvent) => {
-      if (e.key === "sankardev_categories") setCategories(JSON.parse(e.newValue || "[]"));
-      if (e.key === "sankardev_teachers") setTeachers(JSON.parse(e.newValue || "[]"));
-    };
-
-    window.addEventListener("storage", handleStorage);
-    return () => window.removeEventListener("storage", handleStorage);
-  }, []);
+  const categories = useSyncExternalStore(subscribe, getCategoriesSnapshot, getServerCategoriesSnapshot);
+  const teachers = useSyncExternalStore(subscribe, getTeachersSnapshot, getServerTeachersSnapshot);
 
   const addCategory = (category: string) => {
     const newCategory = category.toLowerCase().trim();
     if (!categories.includes(newCategory) && newCategory !== "") {
-      const newCategories = [...categories, newCategory];
-      setCategories(newCategories);
-      localStorage.setItem("sankardev_categories", JSON.stringify(newCategories));
+      categoriesCache = [...categories, newCategory];
+      localStorage.setItem(CATEGORIES_KEY, JSON.stringify(categoriesCache));
+      notifyStoreChanged();
     }
   };
 
   const removeCategory = (category: string) => {
     if (category === "all") return;
-    const newCategories = categories.filter(c => c !== category);
-    setCategories(newCategories);
-    localStorage.setItem("sankardev_categories", JSON.stringify(newCategories));
+
+    categoriesCache = categories.filter(c => c !== category);
+    localStorage.setItem(CATEGORIES_KEY, JSON.stringify(categoriesCache));
+    notifyStoreChanged();
   };
 
   const addTeacher = (teacher: Omit<Teacher, "id">) => {
     const newTeacher = { ...teacher, id: Date.now().toString() };
-    const newTeachers = [...teachers, newTeacher];
-    setTeachers(newTeachers);
-    localStorage.setItem("sankardev_teachers", JSON.stringify(newTeachers));
+
+    teachersCache = [...teachers, newTeacher];
+    localStorage.setItem(TEACHERS_KEY, JSON.stringify(teachersCache));
+    notifyStoreChanged();
   };
 
   const removeTeacher = (id: string) => {
-    const newTeachers = teachers.filter((t) => t.id !== id);
-    setTeachers(newTeachers);
-    localStorage.setItem("sankardev_teachers", JSON.stringify(newTeachers));
+    teachersCache = teachers.filter((teacher) => teacher.id !== id);
+    localStorage.setItem(TEACHERS_KEY, JSON.stringify(teachersCache));
+    notifyStoreChanged();
   };
 
   return {
@@ -93,6 +138,6 @@ export function useTeachersStore() {
     removeCategory,
     addTeacher,
     removeTeacher,
-    isLoaded
+    isLoaded: true
   };
 }

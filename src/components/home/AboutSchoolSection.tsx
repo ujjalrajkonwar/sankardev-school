@@ -2,8 +2,22 @@
 
 import ScrollReveal from "@/components/shared/ScrollReveal";
 import Link from "next/link";
+import { useAnnouncementsStore } from "@/lib/announcements-store";
+
+const TICKER_STYLES = [
+  { text: "text-orange-600", dot: "bg-orange-600" },
+  { text: "text-blue-600", dot: "bg-blue-600" },
+  { text: "text-green-600", dot: "bg-green-600" },
+  { text: "text-purple-600", dot: "bg-purple-600" },
+];
 
 export default function AboutSchoolSection() {
+  const { publishedEvents, publishedNotices } = useAnnouncementsStore();
+  const tickerItems = [
+    ...publishedNotices.slice(0, 2).map((notice) => notice.title),
+    ...publishedEvents.slice(0, 2).map((event) => event.title),
+  ];
+
   return (
     <section id="about" className="pt-28 pb-16 sm:pt-32 sm:pb-24 bg-white scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -55,18 +69,16 @@ export default function AboutSchoolSection() {
                 <div className="flex animate-marquee whitespace-nowrap">
                   {[...Array(2)].map((_, idx) => (
                     <div key={idx} className="flex shrink-0 items-center gap-8 px-4">
-                      <span className="flex items-center gap-2 text-sm font-medium text-orange-600">
-                        <span className="w-1.5 h-1.5 rounded-full bg-orange-600 animate-pulse"></span>
-                        Admission open for Session 2026-27
-                      </span>
-                      <span className="flex items-center gap-2 text-sm font-medium text-blue-600">
-                        <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span>
-                        Half Yearly Results declared for Class IX
-                      </span>
-                      <span className="flex items-center gap-2 text-sm font-medium text-green-600">
-                        <span className="w-1.5 h-1.5 rounded-full bg-green-600 animate-pulse"></span>
-                        Annual Sports Meet next week
-                      </span>
+                      {tickerItems.map((item, itemIndex) => {
+                        const style = TICKER_STYLES[itemIndex % TICKER_STYLES.length];
+
+                        return (
+                          <span key={`${idx}-${item}`} className={`flex items-center gap-2 text-sm font-medium ${style.text}`}>
+                            <span className={`w-1.5 h-1.5 rounded-full ${style.dot} animate-pulse`}></span>
+                            {item}
+                          </span>
+                        );
+                      })}
                     </div>
                   ))}
                 </div>

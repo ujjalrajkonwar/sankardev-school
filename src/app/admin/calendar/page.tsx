@@ -2,20 +2,17 @@
 
 import { useState } from "react";
 import { Plus, ChevronLeft, ChevronRight } from "lucide-react";
-
-const EVENT_TYPES = { holiday: "bg-red-100 text-red-700", exam: "bg-yellow-100 text-yellow-700", event: "bg-blue-100 text-blue-700", vacation: "bg-green-100 text-green-700" };
-
-const DEMO_EVENTS = [
-  { id: 1, title: "Republic Day", date: "2026-04-30", type: "holiday" as const },
-  { id: 2, title: "Mid-Term Exams", date: "2026-05-07", type: "exam" as const },
-  { id: 3, title: "Sports Day", date: "2026-05-20", type: "event" as const },
-  { id: 4, title: "Summer Vacation", date: "2026-06-01", type: "vacation" as const },
-];
+import {
+  EVENT_TYPE_BADGES,
+  EventKind,
+  translateToAssamese,
+  useAnnouncementsStore,
+} from "@/lib/announcements-store";
 
 export default function AdminCalendarPage() {
-  const [events, setEvents] = useState(DEMO_EVENTS);
+  const { events, addEvent, isLoaded } = useAnnouncementsStore();
   const [showForm, setShowForm] = useState(false);
-  const [newEvent, setNewEvent] = useState({ title: "", date: "", type: "event" });
+  const [newEvent, setNewEvent] = useState<{ title: string; date: string; type: EventKind }>({ title: "", date: "", type: "event" });
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
 
@@ -23,16 +20,19 @@ export default function AdminCalendarPage() {
   const firstDay = new Date(year, month, 1).getDay();
   const monthName = new Date(year, month).toLocaleString("default", { month: "long" });
 
-  const addEvent = () => {
-    if (!newEvent.title || !newEvent.date) return;
-    setEvents(prev => [...prev, { ...newEvent, id: Date.now(), type: newEvent.type as "holiday"|"exam"|"event"|"vacation" }]);
-    setNewEvent({ title: "", date: "", type: "event" }); setShowForm(false);
+  const handleAddEvent = () => {
+    if (!newEvent.title.trim() || !newEvent.date) return;
+    addEvent(newEvent);
+    setNewEvent({ title: "", date: "", type: "event" });
+    setShowForm(false);
   };
 
   const getEventsForDay = (day: number) => {
     const dateStr = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
     return events.filter(e => e.date === dateStr);
   };
+
+  if (!isLoaded) return <div className="p-8">Loading...</div>;
 
   return (
     <div className="space-y-6">
@@ -58,12 +58,18 @@ export default function AdminCalendarPage() {
           </div>
           <div>
             <label className="label-text block mb-2">Type</label>
-            <select value={newEvent.type} onChange={e => setNewEvent(p => ({ ...p, type: e.target.value }))}
+            <select value={newEvent.type} onChange={e => setNewEvent(p => ({ ...p, type: e.target.value as EventKind }))}
               className="px-4 py-3 rounded-[--radius-md] border border-[--color-border] text-sm bg-white">
               <option value="event">Event</option><option value="holiday">Holiday</option><option value="exam">Exam</option><option value="vacation">Vacation</option>
             </select>
           </div>
-          <button onClick={addEvent} className="btn-primary text-sm">Save</button>
+          {newEvent.title && (
+            <div className="min-w-[200px] rounded-[--radius-md] border border-[--color-border] bg-[--color-muted]/40 px-4 py-3">
+              <p className="label-text mb-1">Auto Assamese</p>
+              <p className="text-sm font-semibold text-primary font-sans">{translateToAssamese(newEvent.title)}</p>
+            </div>
+          )}
+          <button onClick={handleAddEvent} className="btn-primary text-sm">Save</button>
         </div>
       )}
 
@@ -91,7 +97,7 @@ export default function AdminCalendarPage() {
                 <span className={`text-xs font-medium ${isToday ? "w-6 h-6 rounded-full bg-primary text-white inline-flex items-center justify-center" : "text-[--color-muted-foreground]"}`}>{day}</span>
                 <div className="mt-1 space-y-0.5">
                   {dayEvents.map(e => (
-                    <div key={e.id} className={`text-[9px] font-medium px-1.5 py-0.5 rounded truncate ${EVENT_TYPES[e.type]}`}>{e.title}</div>
+                    <div key={e.id} className={`text-[9px] font-medium px-1.5 py-0.5 rounded truncate ${EVENT_TYPE_BADGES[e.type]}`}>{e.title}</div>
                   ))}
                 </div>
               </div>

@@ -1,26 +1,25 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search, Sparkles, Menu, X } from "lucide-react";
 import CommandSearch from "@/components/shared/CommandSearch";
 
 const ALL_LINKS = [
-  { label: "Notice", href: "/#notice" },
-  { label: "Events", href: "/#events" },
-  { label: "Teachers", href: "/teachers" },
-  { label: "Result", href: "/portal" },
-  { label: "Admission", href: "/admissions" },
-  { label: "Contact Us", href: "/#contact" },
+  { label: "Notice", href: "/#notice", mobileLabel: "Notice" },
+  { label: "Events", href: "/#events", mobileLabel: "Events" },
+  { label: "Teachers", href: "/teachers", mobileLabel: "Teachers" },
+  { label: "Result", href: "/portal", mobileLabel: "Result" },
+  { label: "Admission", href: "/admissions", mobileLabel: "Admission" },
+  { label: "Contact Us", href: "/#contact", mobileLabel: "Contact" },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
 
-  const NavLink = ({ link }: { link: { label: string; href: string } }) => {
+  const NavLink = ({ link }: { link: { label: string; href: string; mobileLabel?: string } }) => {
     const isActive = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href.split('#')[0]) && link.href.split('#')[0] !== '/';
     const isHash = link.href.includes('#');
+    const displayLabel = link.mobileLabel || link.label;
 
     if (isHash) {
       return (
@@ -28,7 +27,8 @@ export default function Navbar() {
           href={link.href}
           className={`px-1.5 md:px-3 py-1.5 text-[10px] sm:text-xs md:text-sm font-medium transition-colors whitespace-nowrap rounded-md ${isActive ? "text-primary font-bold bg-primary/5" : "text-gray-600 hover:text-primary hover:bg-gray-50"}`}
         >
-          {link.label}
+          <span className="md:hidden">{displayLabel}</span>
+          <span className="hidden md:inline">{link.label}</span>
         </a>
       );
     }
@@ -38,7 +38,8 @@ export default function Navbar() {
         href={link.href}
         className={`px-1.5 md:px-3 py-1.5 text-[10px] sm:text-xs md:text-sm font-medium transition-colors whitespace-nowrap rounded-md ${isActive ? "text-primary font-bold bg-primary/5" : "text-gray-600 hover:text-primary hover:bg-gray-50"}`}
       >
-        {link.label}
+        <span className="md:hidden">{displayLabel}</span>
+        <span className="hidden md:inline">{link.label}</span>
       </Link>
     );
   };
@@ -62,7 +63,7 @@ export default function Navbar() {
             </Link>
 
             {/* Links Container */}
-            <nav className="flex items-center justify-end gap-0.5 md:gap-2 overflow-x-auto no-scrollbar scroll-smooth flex-nowrap w-full">
+            <nav className="flex items-center justify-end gap-0 md:gap-1.5 overflow-x-auto no-scrollbar scroll-smooth flex-nowrap w-full">
               {ALL_LINKS.map((link) => (
                 <NavLink key={link.href} link={link} />
               ))}

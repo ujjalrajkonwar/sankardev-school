@@ -1,18 +1,16 @@
 "use client";
 
 import ScrollReveal from "@/components/shared/ScrollReveal";
-import { ArrowRight } from "lucide-react";
-
 export default function LeadershipSection() {
   return (
     <section className="py-16 sm:py-24 bg-gray-50 border-t border-[--color-border]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-8">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-8 max-w-3xl mx-auto">
             
             {/* Principal Card */}
-            <div className="bg-white flex flex-col items-center border border-gray-200 shadow-sm rounded-lg overflow-hidden transition-all hover:shadow-md p-4 sm:p-6 text-center">
-              <div className="w-24 h-32 sm:w-32 sm:h-40 bg-gray-100 rounded-md flex items-center justify-center border border-gray-200 mb-4 shrink-0 relative overflow-hidden">
+            <div className="bg-white flex flex-col items-center border border-gray-200 shadow-sm rounded-lg overflow-hidden transition-all hover:shadow-md p-3 sm:p-5 text-center">
+              <div className="w-20 h-[106px] sm:w-24 sm:h-32 bg-gray-100 rounded-md flex items-center justify-center border border-gray-200 mb-4 shrink-0 relative overflow-hidden">
                 <span className="text-[10px] sm:text-xs text-gray-400 font-medium px-2 text-center">Photo</span>
               </div>
               <h3 className="text-sm sm:text-lg font-bold text-[#004e59] mb-1">
@@ -24,8 +22,8 @@ export default function LeadershipSection() {
             </div>
 
             {/* Vice Principal Card */}
-            <div className="bg-white flex flex-col items-center border border-gray-200 shadow-sm rounded-lg overflow-hidden transition-all hover:shadow-md p-4 sm:p-6 text-center">
-              <div className="w-24 h-32 sm:w-32 sm:h-40 bg-gray-100 rounded-md flex items-center justify-center border border-gray-200 mb-4 shrink-0 relative overflow-hidden">
+            <div className="bg-white flex flex-col items-center border border-gray-200 shadow-sm rounded-lg overflow-hidden transition-all hover:shadow-md p-3 sm:p-5 text-center">
+              <div className="w-20 h-[106px] sm:w-24 sm:h-32 bg-gray-100 rounded-md flex items-center justify-center border border-gray-200 mb-4 shrink-0 relative overflow-hidden">
                 <span className="text-[10px] sm:text-xs text-gray-400 font-medium px-2 text-center">Photo</span>
               </div>
               <h3 className="text-sm sm:text-lg font-bold text-[#004e59] mb-1">

@@ -3,7 +3,7 @@
 import ScrollReveal from "@/components/shared/ScrollReveal";
 import MagneticButton from "@/components/shared/MagneticButton";
 import Link from "next/link";
-import { ArrowRight, Shield, CheckCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export default function HeroSection() {
   return (
@@ -31,8 +31,8 @@ export default function HeroSection() {
 
               {/* Subtext */}
               <p className="text-lg text-[--color-muted-foreground] leading-relaxed max-w-2xl mx-auto">
-                A premier SEBA-affiliated institution in Mathurapur, Charaideo, Assam shaping confident,
-                compassionate, and curious minds since 2001.
+                A premier SEBA-affiliated institution in Mathurapur, Charaideo, Assam.
+                Established at 2000.
               </p>
 
               {/* CTAs */}

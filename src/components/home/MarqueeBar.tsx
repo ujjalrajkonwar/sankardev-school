@@ -2,14 +2,14 @@ export default function MarqueeBar() {
   const items = [
     "SEBA AFFILIATED",
     "MATHURAPUR, CHARAIDEO, ASSAM",
-    "NURTURING MINDS SINCE 2001",
+    "Established at 2000",
     "EXCELLENCE IN EDUCATION",
-    "EST. 2001",
+    "Established at 2000",
     "SEBA AFFILIATED",
     "MATHURAPUR, CHARAIDEO, ASSAM",
-    "NURTURING MINDS SINCE 2001",
+    "Established at 2000",
     "EXCELLENCE IN EDUCATION",
-    "EST. 2001",
+    "Established at 2000",
   ];
 
   return (
