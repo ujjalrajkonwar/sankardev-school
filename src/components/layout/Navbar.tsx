@@ -31,9 +31,33 @@ export default function Navbar() {
     const displayLabel = link.mobileLabel || link.label;
 
     if (isHash) {
+      const hash = link.href.split('#')[1];
+
+      const handleClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        if (!hash) return;
+
+        if (pathname === "/") {
+          const el = document.getElementById(hash);
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+            history.replaceState({}, "", `/#${hash}`);
+            return;
+          }
+          window.location.hash = `#${hash}`;
+          return;
+        }
+
+        window.location.assign(link.href);
+      };
+
       return (
         <a
           href={link.href}
+          onClick={handleClick}
+          role="link"
+          aria-label={link.label}
+          data-hash={hash}
           className={`px-1.5 md:px-3 py-1.5 text-[10px] sm:text-xs md:text-sm font-medium transition-colors whitespace-nowrap rounded-md ${isActive ? "text-primary font-bold bg-primary/5" : "text-gray-600 hover:text-primary hover:bg-gray-50"}`}
         >
           <span className="md:hidden">{displayLabel}</span>
